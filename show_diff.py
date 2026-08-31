@@ -1,5 +1,11 @@
 """Preview what the blocks in this feedstock would remove from conda-pypi.
 
+This previews the **soft-remove** that repo-core applies each index cycle:
+the blocked name's entry is dropped from the shard index and the affected
+``v3.whl`` records are listed here, but the shard blob and the wheel
+artifacts themselves are retained server-side (records stay fetchable by
+direct URL). Deleting a block's YAML restores the entry on the next cycle.
+
 Run from the recipe directory (so ``conda_pypi_repodata_patches`` is
 importable)::
 
@@ -104,7 +110,10 @@ def main() -> None:
             key=lambda record: record["fn"],
         )
         fns = [record["fn"] for record in normalized]
-        out.append(f"{len(fns)} artifacts would be removed: {', '.join(fns)}")
+        out.append(
+            f"{len(fns)} artifacts would be dropped from the index "
+            f"(artifacts retained): {', '.join(fns)}"
+        )
         out.append(f"shard index entry removed: {block.name} -> {hex_hash}")
         before = json.dumps(normalized, indent=2, sort_keys=True).splitlines()
         out.extend(

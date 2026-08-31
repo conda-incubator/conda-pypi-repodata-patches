@@ -1,0 +1,6 @@
+cache/
+show_diff_result.txt
+__pycache__/
+# pixi environments
+.pixi/*
+!.pixi/config.toml

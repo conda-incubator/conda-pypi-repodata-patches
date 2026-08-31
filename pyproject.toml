@@ -19,3 +19,44 @@ dependencies = [
 [tool.hatch.build.targets.wheel]
 packages = ["conda_pypi_repodata_patches"]
 exclude = ["**/__pycache__", "**/*.pyc"]
+
+[tool.pixi.workspace]
+channels = ["conda-forge"]
+platforms = ["win-64"]
+
+[tool.pixi.pypi-dependencies]
+conda-pypi-repodata-patches = { path = ".", editable = true }
+
+[tool.pixi.dependencies]
+msgpack-python = "*"
+
+[tool.pixi.tasks]
+validate = 'python -c "from conda_pypi_repodata_patches import SCHEMA_VERSION, load_blocks; assert SCHEMA_VERSION == 1; b = load_blocks(); assert {x.name for x in b} == {\"lerc\", \"tk\"}, b"'
+show-diff = "python show_diff.py"
+
+[tool.pixi.feature.py310.dependencies]
+python = "3.10.*"
+"backports.zstd" = "*"
+
+[tool.pixi.feature.py311.dependencies]
+python = "3.11.*"
+"backports.zstd" = "*"
+
+[tool.pixi.feature.py312.dependencies]
+python = "3.12.*"
+"backports.zstd" = "*"
+
+[tool.pixi.feature.py313.dependencies]
+python = "3.13.*"
+"backports.zstd" = "*"
+
+[tool.pixi.feature.py314.dependencies]
+python = "3.14.*"
+
+[tool.pixi.environments]
+default = ["py314"]
+py310 = ["py310"]
+py311 = ["py311"]
+py312 = ["py312"]
+py313 = ["py313"]
+py314 = ["py314"]
