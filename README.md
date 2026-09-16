@@ -10,7 +10,7 @@ applies the removals at index-write time. Other patch types may come later.
 The `conda-pypi` channel serves **sharded repodata only**: the index is
 `repodata_shards.msgpack.zst` (a `name -> shard hash` map) plus per-name
 `shards/<hash>.msgpack.zst` blobs holding `v3.whl` records. There is no
-monolithic `repodata.json` to hotfix, so unlike the CEP 88 model, patching
+monolithic `repodata.json` to hotfix, so unlike the [CEP draft](https://github.com/conda/ceps/pull/88), patching
 happens server-side in repo-core against the shard index.
 
 Data flow:
