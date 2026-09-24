@@ -31,7 +31,7 @@ conda-pypi-repodata-patches = { path = ".", editable = true }
 msgpack-python = "*"
 
 [tool.pixi.tasks]
-validate = 'python -c "from conda_pypi_repodata_patches import validate; validate()"'
+validate = 'python -c "from conda_pypi_repodata_patches import SCHEMA_VERSION, load_blocks; assert SCHEMA_VERSION == 1; b = load_blocks(); assert {x.name for x in b} == {\"lerc\", \"tk\"}, b"'
 show-diff = "python show_diff.py"
 
 [tool.pixi.feature.py310.dependencies]

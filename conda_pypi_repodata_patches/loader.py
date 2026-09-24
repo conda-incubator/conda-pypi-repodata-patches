@@ -59,8 +59,3 @@ def load_blocks() -> list[Block]:
 def blocked_names() -> set[str]:
     """Convenience: the set of blocked package names."""
     return {b.name for b in load_blocks()}
-
-
-def validate() -> list[Block]:
-    """Load and validate every shipped block, raising ``ValueError`` on any problem."""
-    return load_blocks()
