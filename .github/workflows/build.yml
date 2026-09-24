@@ -1,0 +1,65 @@
+name: Build & Publish to repocore
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions: {}
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with: { clean: true, fetch-depth: 0 }
+
+      - name: Set up conda
+        uses: conda-incubator/setup-miniconda@8ee1f361103df19b6f8c8655fd3967a8ecb162d5 # v4.0.1
+        with:
+          auto-update-conda: false
+
+      - name: Install build tools
+        shell: bash -l {0}
+        run: conda install --yes --quiet conda-build=26.7.1 anaconda-client=1.15.0
+
+      - name: Generate timestamp version
+        id: version
+        # Same scheme as conda-forge-repodata-patches: 20260924.11.26.28
+        run: echo "version=$(date -u +%Y%m%d.%H.%M.%S)" >> "$GITHUB_OUTPUT"
+
+      - name: Build package
+        id: build
+        shell: bash -l {0}
+        run: |
+          mkdir -p "${RUNNER_TEMP}/pkgs"
+          conda build --croot="${RUNNER_TEMP}/pkgs" -m recipe/conda_build_config.yaml recipe
+          pkg="$(conda build --croot="${RUNNER_TEMP}/pkgs" -m recipe/conda_build_config.yaml recipe --output | tail -n 1)"
+          echo "pkg=${pkg}" >> "${GITHUB_OUTPUT}"
+        env:
+          VERSION_OVERRIDE: ${{ steps.version.outputs.version }}
+
+      - name: Verify main has not moved on
+        if: github.ref == 'refs/heads/main'
+        shell: bash -l {0}
+        run: |
+          remote_sha="$(git ls-remote origin main | cut -f1)"
+          if [ "${remote_sha}" != "${{ github.sha }}" ]; then
+            echo "::error::main is at ${remote_sha} but this run checked out ${{ github.sha }}; refusing to publish a stale build."
+            exit 1
+          fi
+
+      - name: Upload package
+        if: github.ref == 'refs/heads/main'
+        shell: bash -l {0}
+        env:
+          BINSTAR_API_TOKEN: ${{ secrets.REPOCORE_API_KEY }}
+          REPOCORE_URL: ${{ vars.REPOCORE_URL }}
+        run: |
+          anaconda config --set url "${REPOCORE_URL}"
+          anaconda upload --register --no-progress \
+            --user=conda-pypi --label=main \
+            "${{ steps.build.outputs.pkg }}"

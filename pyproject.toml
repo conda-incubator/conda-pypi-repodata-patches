@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "conda-pypi-repodata-patches"
 version = "0.1.0"
-description = "Declarative block list for conda-pypi channel repodata removals."
+description = "Generates changes to the index metadata for the conda-pypi channel."
 readme = "README.md"
 license = "BSD-3-Clause"
 requires-python = ">=3.10"
@@ -31,7 +31,7 @@ conda-pypi-repodata-patches = { path = ".", editable = true }
 msgpack-python = "*"
 
 [tool.pixi.tasks]
-validate = 'python -c "from conda_pypi_repodata_patches import SCHEMA_VERSION, load_blocks; assert SCHEMA_VERSION == 1; b = load_blocks(); assert {x.name for x in b} == {\"lerc\", \"tk\"}, b"'
+validate = 'python -c "from conda_pypi_repodata_patches import validate; validate()"'
 show-diff = "python show_diff.py"
 
 [tool.pixi.feature.py310.dependencies]
