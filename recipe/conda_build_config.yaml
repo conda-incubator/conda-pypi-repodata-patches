@@ -1,8 +1,3 @@
 # Floor: keep in sync with requires-python = ">=3.10" in pyproject.toml.
 python_min:
   - "3.10"
-# Test variant matrix (python_min .. python_max): the floor above and the latest
-# supported Python, matching the pixi python environments in pyproject.toml (py310..py314).
-python:
-  - "3.10"
-  - "3.14"

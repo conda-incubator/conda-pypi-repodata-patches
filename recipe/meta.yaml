@@ -32,8 +32,6 @@ test:
     - conda_pypi_repodata_patches.loader
   commands:
     - python -c "from conda_pypi_repodata_patches import SCHEMA_VERSION, load_blocks; assert SCHEMA_VERSION == 1; b = load_blocks(); assert {x.name for x in b} == {'lerc', 'tk'}, b"
-  requires:
-    - python {{ python }}.*
 
 about:
   home: https://github.com/conda-incubator/conda-pypi-repodata-patches
