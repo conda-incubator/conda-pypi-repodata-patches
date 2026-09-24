@@ -37,6 +37,11 @@ test:
 
 about:
   home: https://github.com/conda-incubator/conda-pypi-repodata-patches
+  description: |
+    Provides a declarative list of repodata patches to apply to the
+    conda-pypi channel index, plus a loader/validator library. The repo-core
+    channel server imports the loader, resolves each patch name against its
+    shard index to artifact filenames, and makes the changes to the channel.
   license: BSD-3-Clause
   license_file: LICENSE
   summary: Generates changes to the index metadata for the conda-pypi channel
