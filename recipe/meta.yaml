@@ -36,7 +36,7 @@ test:
     - python {{ python }}.*
 
 about:
-  home: https://github.com/conda-incubator/conda-pypi-repodata-patches-feedstock
+  home: https://github.com/conda-incubator/conda-pypi-repodata-patches
   license: BSD-3-Clause
   license_file: LICENSE
   summary: Generates changes to the index metadata for the conda-pypi channel
