@@ -25,7 +25,7 @@ jobs:
 
       - name: Install build tools
         shell: bash -l {0}
-        run: conda install --yes --quiet conda-build=26.7.1
+        run: conda install --yes --quiet --name base conda-build=26.7.1
 
       - name: Generate timestamp version
         id: version
