@@ -67,5 +67,6 @@ jobs:
           curl --fail-with-body --show-error --silent \
             -H "X-Auth: ${BINSTAR_API_TOKEN}" \
             -F "content=@${{ steps.build.outputs.pkg }}" \
-            -F "filetype=conda2" \
+            -F "filetype=conda1" \
+            -F "size=$(stat -c %s "${{ steps.build.outputs.pkg }}")" \
             "${REPOCORE_URL}"
