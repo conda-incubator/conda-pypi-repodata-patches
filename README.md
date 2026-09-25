@@ -88,9 +88,9 @@ Steps:
    python -c "from conda_pypi_repodata_patches.loader import load_blocks; load_blocks()"
    ```
 
-   `load_blocks()` raises `ValueError` (naming the offending file) on any
-   invalid block. The build test in `recipe.yaml` also asserts the loader
-   returns exactly the seeded block set.
+    `load_blocks()` raises `ValueError` (naming the offending file) on any
+    invalid block. The build test in `recipe/meta.yaml` also asserts the
+    loader returns exactly the seeded block set.
 
 3. Open a PR describing why the package should be blocked, with evidence.
    Paste the contents of `show_diff_result.txt` into the PR description.

@@ -1,0 +1,49 @@
+{% set pyproject = load_file_data("../pyproject.toml", from_recipe_dir=True) %}
+{% set py_project = pyproject["project"] %}
+{% set py_version = py_project["version"] if py_project is mapping else "0.0.0" %}
+
+package:
+  name: conda-pypi-repodata-patches
+  version: {{ environ.get("VERSION_OVERRIDE", py_version + ".dev0") }}
+
+source:
+  # Use the working tree so local builds include uncommitted blocks.
+  # CI builds from a clean checkout, so the difference does not matter there.
+  path: ..
+
+build:
+  noarch: python
+  number: 0
+  script:
+    - {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation --disable-pip-version-check
+
+requirements:
+  host:
+    - python {{ python_min }}.*
+    - pip
+    - hatchling
+  run:
+    - python >={{ python_min }}
+    - pyyaml
+
+test:
+  imports:
+    - conda_pypi_repodata_patches
+    - conda_pypi_repodata_patches.loader
+  commands:
+    - python -c "from conda_pypi_repodata_patches import SCHEMA_VERSION, load_blocks; assert SCHEMA_VERSION == 1; b = load_blocks(); assert {x.name for x in b} == {'lerc', 'tk'}, b"
+
+about:
+  home: https://github.com/conda-incubator/conda-pypi-repodata-patches
+  description: |
+    Provides a declarative list of repodata patches to apply to the
+    conda-pypi channel index, plus a loader/validator library. The repo-core
+    channel server imports the loader, resolves each patch name against its
+    shard index to artifact filenames, and makes the changes to the channel.
+  license: BSD-3-Clause
+  license_file: LICENSE
+  summary: Generates changes to the index metadata for the conda-pypi channel
+
+extra:
+  recipe-maintainers:
+    - danyeaw
