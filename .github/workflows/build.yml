@@ -25,7 +25,7 @@ jobs:
 
       - name: Install build tools
         shell: bash -l {0}
-        run: conda install --yes --quiet conda-build=26.7.1 anaconda-client=1.15.0
+        run: conda install --yes --quiet conda-build=26.7.1
 
       - name: Generate timestamp version
         id: version
@@ -64,7 +64,8 @@ jobs:
             echo "::error::REPOCORE_URL and REPOCORE_API_KEY must both be configured to publish."
             exit 1
           fi
-          anaconda config --set url "${REPOCORE_URL}"
-          anaconda upload --register --no-progress \
-            --user=conda-pypi --label=main \
-            "${{ steps.build.outputs.pkg }}"
+          curl --fail-with-body --show-error --silent \
+            -H "X-Auth: ${BINSTAR_API_TOKEN}" \
+            -F "content=@${{ steps.build.outputs.pkg }}" \
+            -F "filetype=conda2" \
+            "${REPOCORE_URL}"
