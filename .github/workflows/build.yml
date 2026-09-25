@@ -61,7 +61,7 @@ jobs:
           REPOCORE_URL: ${{ vars.REPOCORE_URL }}
         run: |
           if [ -z "${REPOCORE_URL}" ] || [ -z "${BINSTAR_API_TOKEN}" ]; then
-            echo "::error::REPOCORE_URL and REPOCORE_API_KEY must both be configured to publish."
+            echo "::error::REPOCORE_URL and BINSTAR_API_TOKEN must both be configured to publish."
             exit 1
           fi
           curl --fail-with-body --show-error --silent \
