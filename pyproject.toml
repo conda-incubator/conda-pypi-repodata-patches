@@ -13,6 +13,9 @@ authors = [
   { name = "conda-forge" },
 ]
 dependencies = [
+  "annotated-types",
+  "packaging",
+  "pydantic",
   "pyyaml",
 ]
 
@@ -29,10 +32,16 @@ conda-pypi-repodata-patches = { path = ".", editable = true }
 
 [tool.pixi.dependencies]
 msgpack-python = "*"
+pytest = "*"
 
 [tool.pixi.tasks]
-validate = 'python -c "from conda_pypi_repodata_patches import SCHEMA_VERSION, load_blocks; assert SCHEMA_VERSION == 1; b = load_blocks(); assert {x.name for x in b} == {\"lerc\", \"tk\"}, b"'
+validate = 'python -c "from conda_pypi_repodata_patches.blocks import load_blocks; from conda_pypi_repodata_patches.patches import load_patches; b = load_blocks(); assert {x.name for x in b} == {\"lerc\", \"tk\"}, b; load_patches()"'
 show-diff = "python show_diff.py"
+generate = "python -m conda_pypi_repodata_patches.generate"
+test = "pytest -v"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
 
 [tool.pixi.feature.py310.dependencies]
 python = "3.10.*"

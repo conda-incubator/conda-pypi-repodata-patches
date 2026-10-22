@@ -24,22 +24,29 @@ requirements:
     - hatchling
   run:
     - python >={{ python_min }}
+    - annotated-types
+    - backports.zstd
+    - msgpack-python
+    - packaging
+    - pydantic
     - pyyaml
 
 test:
   imports:
     - conda_pypi_repodata_patches
-    - conda_pypi_repodata_patches.loader
+    - conda_pypi_repodata_patches.blocks
+    - conda_pypi_repodata_patches.patches
+    - conda_pypi_repodata_patches.generate
+    - conda_pypi_repodata_patches.shards
   commands:
-    - python -c "from conda_pypi_repodata_patches import SCHEMA_VERSION, load_blocks; assert SCHEMA_VERSION == 1; b = load_blocks(); assert {x.name for x in b} == {'lerc', 'tk'}, b"
+    - python -c "from conda_pypi_repodata_patches.blocks import load_blocks; from conda_pypi_repodata_patches.patches import load_patches; b = load_blocks(); assert {x.name for x in b} == {'lerc', 'tk'}, b; load_patches()"
 
 about:
   home: https://github.com/conda-incubator/conda-pypi-repodata-patches
   description: |
-    Provides a declarative list of repodata patches to apply to the
-    conda-pypi channel index, plus a loader/validator library. The repo-core
-    channel server imports the loader, resolves each patch name against its
-    shard index to artifact filenames, and makes the changes to the channel.
+    Generates patch_instructions.json for the conda-pypi channel from
+    declarative block and patch definitions. repocore consumes the generated
+    instructions; it does not import this package.
   license: BSD-3-Clause
   license_file: LICENSE
   summary: Generates changes to the index metadata for the conda-pypi channel

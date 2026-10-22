@@ -5,8 +5,6 @@ from pathlib import Path
 
 import yaml
 
-SCHEMA_VERSION = 1
-
 REASONS = {"mis-tagged-pure-python", "name-conflict", "maintainer-prefers-feedstock"}
 
 _BLOCKS_DIR = Path(__file__).parent / "blocks"
@@ -22,14 +20,15 @@ class Block:
     issue: str | None = None
 
 
-def load_blocks() -> list[Block]:
+def load_blocks(directory: Path | None = None) -> list[Block]:
     """Load and validate every ``blocks/*.yaml`` file shipped with the package.
 
     Raises ``ValueError`` (with the offending filename) on any invalid block.
     Supports multi-document YAML files (one block per document).
     """
+    directory = directory or _BLOCKS_DIR
     blocks: list[Block] = []
-    for path in sorted(_BLOCKS_DIR.glob("*.yaml")):
+    for path in sorted(directory.glob("*.yaml")):
         docs = list(yaml.safe_load_all(path.read_text(encoding="utf-8")))
         for doc in docs:
             if doc is None:
@@ -54,8 +53,3 @@ def load_blocks() -> list[Block]:
                 Block(name=name, reason=reason, details=details, issue=issue)
             )
     return blocks
-
-
-def blocked_names() -> set[str]:
-    """Convenience: the set of blocked package names."""
-    return {b.name for b in load_blocks()}
