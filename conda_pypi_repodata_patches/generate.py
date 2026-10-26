@@ -31,7 +31,7 @@ def build_instructions(
 ) -> dict:
     """Build the patch instructions from an index and a shard fetch callback."""
     instructions = {
-        "patch_instructions_version": 1,
+        "patch_instructions_version": 2,
         "packages": {},
         "packages.conda": {},
         "revoke": [],

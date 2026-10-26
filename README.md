@@ -31,9 +31,10 @@ against shard-index keys, so the generator never scans every shard.
 
 ### Artifact contract
 
-`patch_diff.json` has `patch_instructions_version: 1`. A consumer
-that does not understand the version or the `v3` section should reject the
-file. Do not apply the parts it understands.
+`patch_diff.json` has `patch_instructions_version: 2`. Version 2 adds the `v3`
+section, which holds `v3.whl` changes for conda-pypi wheel records. A consumer
+that does not understand version 2 should reject the file. Do not apply the
+parts it understands.
 
 ### Name-scoped patching
 
@@ -145,7 +146,7 @@ repository root:
 
 ```json
 {
-  "patch_instructions_version": 1,
+  "patch_instructions_version": 2,
   "packages": {},
   "packages.conda": {},
   "remove": ["lerc-2.0.0-py3-none-any.whl"],
