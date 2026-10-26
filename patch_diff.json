@@ -1,0 +1,10 @@
+{
+  "packages": {},
+  "packages.conda": {},
+  "patch_instructions_version": 1,
+  "remove": [],
+  "revoke": [],
+  "v3": {
+    "whl": {}
+  }
+}

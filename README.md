@@ -1,8 +1,9 @@
 # `conda-pypi` repodata patches
 
 This repository holds the block and patch definitions for the `conda-pypi`
-channel and the generator that compiles them into a conda-forge-shaped
-`patch_instructions.json`.
+channel, plus the generator that compiles them into `patch_diff.json`. The
+file uses conda-forge's patch instructions format, and the channel consumes
+it through its PATCH API.
 
 ## How it works
 
@@ -13,7 +14,7 @@ monolithic `repodata.json` to hotfix. The generator compiles the patch
 instructions from the shard index. The channel applies that file.
 
 ```
-blocks/*.yaml + patches/*.yaml  ->  generator  ->  patch_instructions.json  ->  channel
+blocks/*.yaml + patches/*.yaml  ->  generator  ->  patch_diff.json  ->  channel
 ```
 
 The generator looks up only the shard names a block or patch refers to,
@@ -30,7 +31,7 @@ against shard-index keys, so the generator never scans every shard.
 
 ### Artifact contract
 
-`patch_instructions.json` has `patch_instructions_version: 1`. A consumer
+`patch_diff.json` has `patch_instructions_version: 1`. A consumer
 that does not understand the version or the `v3` section should reject the
 file. Do not apply the parts it understands.
 
@@ -131,7 +132,7 @@ then:
 
 If a name is both blocked and patched, the block takes precedence.
 
-## Generating `patch_instructions.json`
+## Generating `patch_diff.json`
 
 ```sh
 pixi run generate                  # fresh download of the shard index
@@ -139,7 +140,7 @@ pixi run generate --use-cache      # reuse cache/ from a previous run
 ```
 
 The generator reads `repodata_shards.msgpack.zst`, fetches the shards that
-the blocks and patches refer to, and writes `patch_instructions.json` in the
+the blocks and patches refer to, and writes `patch_diff.json` in the
 repository root:
 
 ```json
@@ -177,7 +178,7 @@ pixi install          # create all environments and write pixi.lock
 pixi run validate     # check the seeded blocks and patch definitions
 pixi run test         # run the unit tests
 pixi run show-diff    # preview removals (add --use-cache to skip downloads)
-pixi run generate     # write patch_instructions.json
+pixi run generate     # write patch_diff.json
 ```
 
 ## License

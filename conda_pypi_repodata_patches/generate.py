@@ -1,4 +1,4 @@
-"""Generate ``patch_instructions.json`` from blocks and patch definitions."""
+"""Generate ``patch_diff.json`` from blocks and patch definitions."""
 
 from __future__ import annotations
 
@@ -18,7 +18,7 @@ from .shards import (
     shard_hash,
 )
 
-OUTPUT = Path("patch_instructions.json")
+OUTPUT = Path("patch_diff.json")
 
 
 def build_instructions(

@@ -44,9 +44,8 @@ test:
 about:
   home: https://github.com/conda-incubator/conda-pypi-repodata-patches
   description: |
-    Generates patch_instructions.json for the conda-pypi channel from
-    declarative block and patch definitions. repocore consumes the generated
-    instructions; it does not import this package.
+    Generates patch_diff.json for the conda-pypi channel from
+    declarative block and patch definitions.
   license: BSD-3-Clause
   license_file: LICENSE
   summary: Generates changes to the index metadata for the conda-pypi channel
