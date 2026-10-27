@@ -2,7 +2,7 @@
 
 Each `*.yaml` file in this directory holds one or more patch documents. The
 generator applies them to the matching `v3.whl` records and writes the changed
-keys to `patch_instructions_diff.json`.
+keys to `delta_patch_instructions.json`.
 
 ```yaml
 if:

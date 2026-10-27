@@ -44,7 +44,7 @@ test:
 about:
   home: https://github.com/conda-incubator/conda-pypi-repodata-patches
   description: |
-    Generates patch_instructions_diff.json for the conda-pypi channel from
+    Generates delta_patch_instructions.json for the conda-pypi channel from
     declarative block and patch definitions.
   license: BSD-3-Clause
   license_file: LICENSE

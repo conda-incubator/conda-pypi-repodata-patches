@@ -2,7 +2,7 @@
 
 This repository holds the block and patch definitions for the `conda-pypi`
 channel, plus the generator that compiles them into
-`patch_instructions_diff.json`. The file uses conda-forge's patch
+`delta_patch_instructions.json`. The file uses conda-forge's patch
 instructions format, and the channel consumes it through its PATCH API.
 
 ## How it works
@@ -14,7 +14,7 @@ monolithic `repodata.json` to hotfix. The generator compiles the patch
 instructions from the shard index. The channel applies that file.
 
 ```
-blocks/*.yaml + patches/*.yaml  ->  generator  ->  patch_instructions_diff.json  ->  channel
+blocks/*.yaml + patches/*.yaml  ->  generator  ->  delta_patch_instructions.json  ->  channel
 ```
 
 The generator looks up only the shard names a block or patch refers to,
@@ -31,7 +31,7 @@ against shard-index keys, so the generator never scans every shard.
 
 ### Artifact contract
 
-`patch_instructions_diff.json` has `patch_instructions_version: 2`. Version 2
+`delta_patch_instructions.json` has `patch_instructions_version: 2`. Version 2
 adds the `v3` section, which holds `v3.whl` changes for conda-pypi wheel
 records. A consumer that does not understand version 2 should reject the file.
 Do not apply the parts it understands.
@@ -133,7 +133,7 @@ then:
 
 If a name is both blocked and patched, the block takes precedence.
 
-## Generating `patch_instructions_diff.json`
+## Generating `delta_patch_instructions.json`
 
 ```sh
 pixi run generate                  # fresh download of the shard index
@@ -141,7 +141,7 @@ pixi run generate --use-cache      # reuse cache/ from a previous run
 ```
 
 The generator reads `repodata_shards.msgpack.zst`, fetches the shards that
-the blocks and patches refer to, and writes `patch_instructions_diff.json`
+the blocks and patches refer to, and writes `delta_patch_instructions.json`
 in the repository root:
 
 ```json
@@ -179,7 +179,7 @@ pixi install          # create all environments and write pixi.lock
 pixi run validate     # check the seeded blocks and patch definitions
 pixi run test         # run the unit tests
 pixi run show-diff    # preview removals (add --use-cache to skip downloads)
-pixi run generate     # write patch_instructions_diff.json
+pixi run generate     # write delta_patch_instructions.json
 ```
 
 ## License

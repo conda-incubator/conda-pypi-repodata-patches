@@ -1,1 +1,1 @@
-"""Generate ``patch_instructions_diff.json`` for the conda-pypi channel."""
+"""Generate ``delta_patch_instructions.json`` for the conda-pypi channel."""
