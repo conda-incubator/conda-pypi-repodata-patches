@@ -1,0 +1,19 @@
+{
+  "packages": {},
+  "packages.conda": {},
+  "patch_instructions_version": 2,
+  "remove": [],
+  "revoke": [],
+  "v3": {
+    "whl": {
+      "noja-reader-1.0.0-py3_none_any_0": {
+        "depends": [
+          "feedparser>=5.2.0",
+          "html2text <2025.0a0",
+          "tomli[when=\"python<3.11\"]",
+          "python>=3.9"
+        ]
+      }
+    }
+  }
+}

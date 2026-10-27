@@ -1,0 +1,7 @@
+# Applies because `html2text` is present, then appends a dependency.
+if:
+  name: noja-reader
+  timestamp_lt: 1747545921001
+  has_depends: html2text
+then:
+  - add_depends: setuptools>=68

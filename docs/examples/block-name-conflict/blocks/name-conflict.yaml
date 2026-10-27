@@ -1,0 +1,5 @@
+# Lists all 19 `six` artifacts under `remove`.
+name: six
+reason: name-conflict
+details: |
+  The PyPI package six shares its name with the conda-forge six package.

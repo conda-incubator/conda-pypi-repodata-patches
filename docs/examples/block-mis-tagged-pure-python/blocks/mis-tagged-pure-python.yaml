@@ -1,0 +1,6 @@
+# Lists the `container-env` artifact under `remove`.
+name: container-env
+reason: mis-tagged-pure-python
+details: |
+  Illustrative example. A real block would explain why this wheel is tagged
+  py3-none-any even though it cannot run from the noarch channel.

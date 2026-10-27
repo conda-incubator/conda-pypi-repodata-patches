@@ -1,0 +1,16 @@
+{
+  "packages": {},
+  "packages.conda": {},
+  "patch_instructions_version": 2,
+  "remove": [],
+  "revoke": [],
+  "v3": {
+    "whl": {
+      "container-env-0.1.0-py3_none_any_0": {
+        "constrains": [
+          "setuptools>=68"
+        ]
+      }
+    }
+  }
+}

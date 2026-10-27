@@ -1,0 +1,10 @@
+# Resets to `foo 1.2.3 0`, then relaxes the exact pin with `max_pin: x`.
+# Wheel records use single-token PEP 440 specs, so reset to a conda-style pin.
+if:
+  name: container-env
+  timestamp_lt: 1593437541651
+then:
+  - reset_depends: "foo 1.2.3 0"
+  - relax_exact_depends:
+      name: foo
+      max_pin: x

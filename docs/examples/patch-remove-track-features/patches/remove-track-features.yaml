@@ -1,0 +1,9 @@
+# Adds one feature, then removes it and writes `null`.
+# Captured wheel records have no track_features key, so add one first.
+# Removing the last feature leaves track_features as null.
+if:
+  name: container-env
+  timestamp_lt: 1593437541651
+then:
+  - add_track_features: feature-a
+  - remove_track_features: feature-a

@@ -1,0 +1,6 @@
+# Removes `html2text` and keeps the other dependencies.
+if:
+  name: noja-reader
+  timestamp_lt: 1747545921001
+then:
+  - remove_depends: html2text

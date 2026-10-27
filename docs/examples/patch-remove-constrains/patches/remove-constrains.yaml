@@ -1,0 +1,10 @@
+# Adds two constraints, then removes one.
+# Captured wheel records have no constrains key, so add two first.
+if:
+  name: container-env
+  timestamp_lt: 1593437541651
+then:
+  - add_constrains:
+      - setuptools>=68
+      - wheel>=0.40
+  - remove_constrains: "setuptools*"

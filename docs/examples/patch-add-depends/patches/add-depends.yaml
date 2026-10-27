@@ -1,0 +1,6 @@
+# Appends `typing-extensions>=4` to `depends`.
+if:
+  name: container-env
+  timestamp_lt: 1593437541651
+then:
+  - add_depends: typing-extensions>=4

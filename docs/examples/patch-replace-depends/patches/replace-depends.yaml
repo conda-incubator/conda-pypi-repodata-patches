@@ -1,0 +1,8 @@
+# Replaces `html2text` with `html2text>=2025.1` in place.
+if:
+  name: noja-reader
+  timestamp_lt: 1747545921001
+then:
+  - replace_depends:
+      old: html2text
+      new: "html2text>=2025.1"

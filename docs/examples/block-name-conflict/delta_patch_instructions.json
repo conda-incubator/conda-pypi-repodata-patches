@@ -1,0 +1,30 @@
+{
+  "packages": {},
+  "packages.conda": {},
+  "patch_instructions_version": 2,
+  "remove": [
+    "six-1.10.0-py2.py3-none-any.whl",
+    "six-1.11.0-py2.py3-none-any.whl",
+    "six-1.12.0-py2.py3-none-any.whl",
+    "six-1.13.0-py2.py3-none-any.whl",
+    "six-1.14.0-py2.py3-none-any.whl",
+    "six-1.15.0-py2.py3-none-any.whl",
+    "six-1.16.0-py2.py3-none-any.whl",
+    "six-1.17.0-py2.py3-none-any.whl",
+    "six-1.5.0-py2.py3-none-any.whl",
+    "six-1.5.1-py2.py3-none-any.whl",
+    "six-1.5.2-py2.py3-none-any.whl",
+    "six-1.6.0-py2.py3-none-any.whl",
+    "six-1.6.1-py2.py3-none-any.whl",
+    "six-1.7.0-py2.py3-none-any.whl",
+    "six-1.7.1-py2.py3-none-any.whl",
+    "six-1.7.2-py2.py3-none-any.whl",
+    "six-1.7.3-py2.py3-none-any.whl",
+    "six-1.8.0-py2.py3-none-any.whl",
+    "six-1.9.0-py2.py3-none-any.whl"
+  ],
+  "revoke": [],
+  "v3": {
+    "whl": {}
+  }
+}

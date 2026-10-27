@@ -131,6 +131,9 @@ then:
 - Dependency strings may end in `[when="..."]`. The generator splits the
   marker off, applies the operation to the bare spec, and reattaches it.
 
+See [`docs/examples/README.md`](docs/examples/README.md) for an input and output
+pair for each block reason, patch operation, and condition.
+
 If a name is both blocked and patched, the block takes precedence.
 
 ## Generating `delta_patch_instructions.json`

@@ -1,0 +1,8 @@
+# Replaces the dependency list with two entries.
+if:
+  name: container-env
+  timestamp_lt: 1593437541651
+then:
+  - reset_depends:
+      - python>=3.10
+      - typing-extensions>=4

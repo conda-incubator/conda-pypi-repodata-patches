@@ -1,0 +1,6 @@
+# Creates `track_features` with one feature.
+if:
+  name: container-env
+  timestamp_lt: 1593437541651
+then:
+  - add_track_features: feature-example

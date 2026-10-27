@@ -1,0 +1,8 @@
+# Adds an upper bound to the bare `html2text` dependency.
+if:
+  name: noja-reader
+  timestamp_lt: 1747545921001
+then:
+  - tighten_depends:
+      name: html2text
+      upper_bound: "2025.0"
