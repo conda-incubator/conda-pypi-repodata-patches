@@ -1,0 +1,6 @@
+# Removes `tomli` while its marker is attached.
+if:
+  name: noja-reader
+  timestamp_lt: 1747545921001
+then:
+  - remove_depends: tomli

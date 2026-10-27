@@ -1,0 +1,12 @@
+{
+  "packages": {},
+  "packages.conda": {},
+  "patch_instructions_version": 2,
+  "remove": [
+    "noja_reader-1.0.0-py3-none-any.whl"
+  ],
+  "revoke": [],
+  "v3": {
+    "whl": {}
+  }
+}

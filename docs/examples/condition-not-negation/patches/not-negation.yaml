@@ -1,0 +1,7 @@
+# Skips `gematriapy` 0.2.0 and patches 0.1.0 and 0.3.0.
+if:
+  name: gematriapy
+  timestamp_lt: 1726145232127
+  not_version: "0.2.0"
+then:
+  - add_depends: setuptools>=68

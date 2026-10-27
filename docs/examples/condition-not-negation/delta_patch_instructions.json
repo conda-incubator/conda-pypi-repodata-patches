@@ -1,0 +1,23 @@
+{
+  "packages": {},
+  "packages.conda": {},
+  "patch_instructions_version": 2,
+  "remove": [],
+  "revoke": [],
+  "v3": {
+    "whl": {
+      "gematriapy-0.1.0-py3_none_any_0": {
+        "depends": [
+          "python>=3.7",
+          "setuptools>=68"
+        ]
+      },
+      "gematriapy-0.3.0-py3_none_any_0": {
+        "depends": [
+          "python>=3.7",
+          "setuptools>=68"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+# Renames `python` to `python3`.
+if:
+  name: usagestats
+  timestamp_lt: 1414525199814
+then:
+  - rename_depends:
+      old: python
+      new: python3

@@ -1,0 +1,6 @@
+# Creates `constrains` with `setuptools>=68`.
+if:
+  name: container-env
+  timestamp_lt: 1593437541651
+then:
+  - add_constrains: setuptools>=68

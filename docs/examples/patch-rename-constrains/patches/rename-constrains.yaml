@@ -1,0 +1,10 @@
+# Adds a constraint, then renames it.
+# Captured wheel records have no constrains key, so add one first.
+if:
+  name: container-env
+  timestamp_lt: 1593437541651
+then:
+  - add_constrains: setuptools
+  - rename_constrains:
+      old: setuptools
+      new: flit-core

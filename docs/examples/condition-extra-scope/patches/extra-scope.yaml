@@ -1,0 +1,7 @@
+# Adds a dependency to `extra_depends.dev` and leaves `depends` unchanged.
+if:
+  name: noja-reader
+  timestamp_lt: 1747545921001
+  extra: dev
+then:
+  - add_depends: setuptools>=68

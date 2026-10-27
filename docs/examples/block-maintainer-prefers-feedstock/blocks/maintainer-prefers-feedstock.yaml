@@ -1,0 +1,6 @@
+# Lists the `noja-reader` artifact under `remove`.
+name: noja-reader
+reason: maintainer-prefers-feedstock
+details: |
+  Illustrative example. A real block would link the maintainer's request to
+  use the conda-forge feedstock instead of the converted wheel.

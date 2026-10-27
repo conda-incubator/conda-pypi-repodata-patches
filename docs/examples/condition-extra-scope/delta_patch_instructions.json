@@ -1,0 +1,23 @@
+{
+  "packages": {},
+  "packages.conda": {},
+  "patch_instructions_version": 2,
+  "remove": [],
+  "revoke": [],
+  "v3": {
+    "whl": {
+      "noja-reader-1.0.0-py3_none_any_0": {
+        "extra_depends": {
+          "dev": [
+            "black",
+            "bumpver",
+            "isort",
+            "pip-tools",
+            "pytest",
+            "setuptools>=68"
+          ]
+        }
+      }
+    }
+  }
+}
