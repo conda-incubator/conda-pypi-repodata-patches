@@ -1,6 +1,6 @@
 """Preview what the blocks in this feedstock would remove from conda-pypi.
 
-This previews the **soft-remove** that repo-core applies each index cycle:
+This previews the **soft-remove** that repocore applies each index cycle:
 the blocked name's entry is dropped from the shard index and the affected
 ``v3.whl`` records are listed here, but the shard blob and the wheel
 artifacts themselves are retained server-side (records stay fetchable by
@@ -24,47 +24,16 @@ from __future__ import annotations
 import argparse
 import difflib
 import json
-import os
-import urllib.request
 from pathlib import Path
 
-import msgpack
-
-try:
-    from compression import zstd  # Python 3.14+ stdlib (PEP 784)
-except ImportError:
-    from backports import zstd
-
-from conda_pypi_repodata_patches.loader import load_blocks
-
-USER_AGENT = "conda-pypi-repodata-patches/show_diff"
-DEFAULT_CHANNEL = "https://conda.anaconda.org/conda-pypi"
-CACHE_DIR = Path(os.environ.get("CACHE_DIR", "cache"))
-
-
-def fetch(url: str, cache_path: Path, use_cache: bool) -> bytes:
-    if use_cache and cache_path.exists():
-        return cache_path.read_bytes()
-    request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-    with urllib.request.urlopen(request) as response:
-        data = response.read()
-    cache_path.parent.mkdir(parents=True, exist_ok=True)
-    cache_path.write_bytes(data)
-    return data
-
-
-def unpack_zst_msgpack(data: bytes):
-    return msgpack.unpackb(zstd.decompress(data), raw=False)
-
-
-def normalize(value):
-    if isinstance(value, bytes):
-        return value.hex()
-    if isinstance(value, dict):
-        return {key: normalize(val) for key, val in value.items()}
-    if isinstance(value, list):
-        return [normalize(item) for item in value]
-    return value
+from conda_pypi_repodata_patches.blocks import load_blocks
+from conda_pypi_repodata_patches.shards import (
+    CACHE_DIR,
+    DEFAULT_CHANNEL,
+    fetch,
+    normalize,
+    unpack_zst_msgpack,
+)
 
 
 def main() -> None:
